@@ -1,34 +1,31 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bodyParser = require('body-parser');
+const zod = require('zod');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-const secret = "Secret"; // This should be inside the .env file
+dotenv.config();
+
+const secret = process.env.SECRET; // This should be inside the .env file
+
+const mongoDb = process.env.MONGO_URL;
+mongoose.connect(mongoDb, (err) => {
+  if (!err) console.log('MongoDB connected successfully!')
+  else console.log(err);
+});
 
 const app = express();
 app.use(express.json());
 
-const port = 3000;
+const port = process.env.PORT;
+console.log(port);
 
-const USERS = [
-  { 
-    id:1,
-    username: "parthiv",
-    password: "gibberish",
-    name: "Parthiv Parmar",
-  },
-  {
-    id:2,
-    username: "chandler",
-    password: "1222",
-    name: "Chandler Bing",
-  },
-  {
-    id:3,
-    username: "harvey",
-    password: "mike",
-    name: "Harvey Specter",
-  },
-];
+app.get('/', (req, res) => {
+  res.json({
+    users: USERS,
+  });
+});
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
