@@ -27,6 +27,7 @@ const productSchema = new mongoose.Schema({
   price: Number,
   inStock: Boolean,
   description: String,
+  productImageLink: String
 });
 
 const Admin = mongoose.model('Admin', adminSchema);
