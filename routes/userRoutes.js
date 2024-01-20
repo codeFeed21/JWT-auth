@@ -3,10 +3,7 @@ const router = new Router();
 const jwt = require('jsonwebtoken');
 const userMiddleware = require('../middlewares/users');
 const { User, Product } = require('../db');
-const dotenv = require('dotenv');
-dotenv.config();
-
-const secret = process.env.SECRET;
+const { secret } = require('../config');
 
 router.get('/products', async (req, res) => {
   const response = await Product.find({});
@@ -39,6 +36,7 @@ router.post('/signin', async (req, res) => {
   });
   if (user) {
     const token = jwt.sign({ username }, secret);
+    console.log(secret);
     res.json({
       token,
     });

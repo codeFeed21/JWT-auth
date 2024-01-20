@@ -3,10 +3,8 @@ const router = new Router();
 const jwt = require('jsonwebtoken');
 const adminMiddleware = require('../middlewares/admin');
 const { Admin, Product } = require('../db');
-const dotenv = require('dotenv');
-dotenv.config();
 
-const secret = process.env.SECRET;
+const secret = require('../config');
 
 router.post('/signup', async (req, res) => {
   const username = req.body.username;
@@ -40,8 +38,8 @@ router.post('/signin', async (req, res) => {
     );
 
     res.json({
-        token,
-    })  
+      token,
+    });
   } else {
     res.status(403).json({
       msg: 'Incorrect Email or Password!',

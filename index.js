@@ -1,14 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const zod = require('zod');
-const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 const adminMiddleware = require('./middlewares/admin');
 const userMiddleware = require('./middlewares/users');
 
 dotenv.config();
-
 
 const port = process.env.PORT;
 
